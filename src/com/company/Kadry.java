@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Created by S³awomir on 04.04.2016.
  */
-public class Kadry  {
+public class Kadry implements Serializable {
     private Pracownik[] pracownicy_;
     private int zatrudnienie_;
 
@@ -37,7 +37,7 @@ public class Kadry  {
 
     @Override
     public String toString() {
-        String wyswietl = "Kadry1{";
+        String wyswietl = "Kadry{";
         for (int i = 0; i < zatrudnienie_; i++) {
             wyswietl = wyswietl + pracownicy_[i].toString();
         }
@@ -123,9 +123,18 @@ public class Kadry  {
             tablicaDzialy[l] = tempTablica[l];
         }
         return tablicaDzialy;
-
-
     }
+
+    public static void zapiszDoPliku(Kadry kadry, String nazwaPliku) throws IOException, ClassNotFoundException {
+            ObjectOutputStream plikKadry = new ObjectOutputStream(new FileOutputStream(nazwaPliku));
+            plikKadry.writeObject(kadry);
+    }
+
+    public Kadry odczytajZPliku(String nazwaPliku) throws IOException, ClassNotFoundException{
+        ObjectInputStream plikKadry = new ObjectInputStream(new FileInputStream(nazwaPliku));
+        return (Kadry) plikKadry.readObject();
+    }
+
 
     //////////////////////////////////
     //metody pomocnicze po za zadaniem

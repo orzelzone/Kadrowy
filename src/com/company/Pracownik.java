@@ -1,9 +1,11 @@
 package com.company;
 
+import java.io.Serializable;
+
 /**
  * Created by Sławomir on 04.04.2016.
  */
-public class Pracownik {
+public class Pracownik implements Serializable {
     private String imie;
     private String nazwisko;
     private double placa;
