@@ -1,0 +1,5 @@
+Jan Kowalski2 20102 M 3
+Agnieszka2 Cuber 29002 K 3
+Adam2 Nowak 11020 M 4
+Sylwia2 Zych 21020 K 3
+Beata2 Dudek 19200 K 4
