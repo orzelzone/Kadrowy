@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Created by S³awomir on 04.04.2016.
+ * Created by SÅ‚awomir on 04.04.2016.
  */
 public class Kadry implements Serializable {
     private Pracownik[] pracownicy_;
@@ -21,16 +21,16 @@ public class Kadry implements Serializable {
             pracownicy_[zatrudnienie_] = pracownik;
             zatrudnienie_++;
         } else
-            System.out.println("Brak mo¿liwoœci dodania tego pracownika z powodów polityki firmy o 100 zatrudnionych osobach");
+            System.out.println("Brak moÅ¼liwoÅ›ci dodania tego pracownika z powodÃ³w polityki firmy o 100 zatrudnionych osobach");
 
     }
 
     public void dodajPracownikaInteraktywnie() {
-        String imie = czytajString("Podaj imiê nowego pracownika");
+        String imie = czytajString("Podaj imiÄ™ nowego pracownika");
         String nazwisko = czytajString("Podaj nazwisko nowego pracownika");
-        double placa = czytajDouble("Podaj wysokoœæ wynagrodzenia dla pracownika który zostaje zatrudniony");
-        char plec = czytajChar("Podaj p³eæ Pracownika M-mê¿czyzna, K-Kobieta");
-        int dzial = czytajInt("podaj numer dzia³u w którym pracownik zozstaje zatrudniony");
+        double placa = czytajDouble("Podaj wysokoÅ›Ä‡ wynagrodzenia dla pracownika ktÃ³ry zostaje zatrudniony");
+        char plec = czytajChar("Podaj pÅ‚eÄ‡ Pracownika M-mÄ™Å¼czyzna, K-Kobieta");
+        int dzial = czytajInt("podaj numer dziaÅ‚u w ktÃ³rym pracownik zozstaje zatrudniony");
         Pracownik pracownik = new Pracownik(imie, nazwisko, placa, plec, dzial);
         dodajPracownika(pracownik);
     }
@@ -44,14 +44,12 @@ public class Kadry implements Serializable {
         wyswietl = wyswietl + "%n}";
         return String.format(wyswietl);
 
-        /*return "Kadry{" +
-                "pracownicy_=" + Arrays.toString(pracownicy_) +
-                '}';*/
+
     }
 
     public void imprtujZPlikuTekstowego(String nazwaPliku) throws FileNotFoundException {
         String[] danePracownika = new String[5];
-        String linijkaTekstu;
+       int licznik =0;
         Scanner linijka = new Scanner(new File(nazwaPliku)).useDelimiter("/n/r");
 
         while (linijka.hasNext()) {
@@ -68,8 +66,10 @@ public class Kadry implements Serializable {
                     znak, Integer.valueOf(danePracownika[4]));
             dodajPracownika(pracownik);
             slowo.close();
+            licznik++;
         }
         linijka.close();
+        System.out.println("PrawidÅ‚owo dokonano importu "+ licznik+ " pracownikÃ³w z pliku: " + nazwaPliku);
 
     }
 
@@ -124,13 +124,19 @@ public class Kadry implements Serializable {
         }
         return tablicaDzialy;
     }
+    public void piszDane(){
+        System.out.println(this);
+        System.out.println("Srednie Wynagrodzenie w firmie wynosi: "+ this.sredniZarobek() +" zÅ‚");
 
-    public static void zapiszDoPliku(Kadry kadry, String nazwaPliku) throws IOException, ClassNotFoundException {
-            ObjectOutputStream plikKadry = new ObjectOutputStream(new FileOutputStream(nazwaPliku));
-            plikKadry.writeObject(kadry);
+
     }
 
-    public Kadry odczytajZPliku(String nazwaPliku) throws IOException, ClassNotFoundException{
+    public static void zapiszDoPliku(Kadry kadry, String nazwaPliku) throws IOException, ClassNotFoundException {
+        ObjectOutputStream plikKadry = new ObjectOutputStream(new FileOutputStream(nazwaPliku));
+        plikKadry.writeObject(kadry);
+    }
+
+    public Kadry odczytajZPliku(String nazwaPliku) throws IOException, ClassNotFoundException {
         ObjectInputStream plikKadry = new ObjectInputStream(new FileInputStream(nazwaPliku));
         return (Kadry) plikKadry.readObject();
     }
@@ -148,12 +154,12 @@ public class Kadry implements Serializable {
             try {
                 liczba = Integer.parseInt(odczyt.readLine());
                 ok = true;
-            } catch (NumberFormatException e) { //gdy wprowadzone dane nie s¹ liczb¹
+            } catch (NumberFormatException e) { //gdy wprowadzone dane nie sÄ… liczbÄ…
                 System.err.println("Wprowadziles  zle znaki. WPROWADZI JESZCZE RAZ");
                 System.out.println(komunikat);
                 ok = false;
             } catch (IOException e) {
-                System.err.println("b³¹d danych");
+                System.err.println("bÅ‚Ä…d danych");
                 ok = false;
             }
         }
@@ -170,12 +176,12 @@ public class Kadry implements Serializable {
                 liczba = Double.parseDouble(odczyt.readLine());
                 ok = true;
                 //odczyt.close();
-            } catch (NumberFormatException e) { //gdy wprowadzone dane nie s¹ liczb¹
+            } catch (NumberFormatException e) { //gdy wprowadzone dane nie sÄ… liczbÄ…
                 System.err.println("Wprowadziles  zle znaki. WPROWADZI JESZCZE RAZ");
                 System.out.println(komunikat);
                 ok = false;
             } catch (IOException e) {
-                System.err.println("b³¹d danych");
+                System.err.println("bÅ‚Ä…d danych");
                 ok = false;
             }
 
@@ -216,11 +222,11 @@ public class Kadry implements Serializable {
                     return znak;
                 } else {
                     poprawny = false;
-                    System.out.println("Wprowadzi³eœ nieprawid³owe oznaczenie p³ci");
+                    System.out.println("WprowadziÅ‚eÅ› nieprawidÅ‚owe oznaczenie pÅ‚ci");
                 }
 
             } catch (Exception e) {
-                System.out.println("Porszê podaæ poprawny znak");
+                System.out.println("PorszÄ™ podaÄ‡ poprawny znak");
                 poprawny = false;
             }
         }

@@ -31,26 +31,11 @@ public class Pracownik implements Serializable {
 
     @Override
     public String toString() {
-        String wyswietl = "%n Pracownik{" +
-                "imie='" + imie + '\'' +
-                ", nazwisko='" + nazwisko + '\'' +
-                ", placa=" + placa +
-                ", plec=" + plec +
-                ", dzial=" + dzial +
-                '}';
-        return String.format(wyswietl);
-        /*return "Pracownik{" +
-                "imie='" + imie + '\'' +
-                ", nazwisko='" + nazwisko + '\'' +
-                ", placa=" + placa +
-                ", plec=" + plec +
-                ", dzial=" + dzial +
-                '}';*/
-
+        return String.format("%n %-20s %-20s %3c %4d %10.2f zł ",imie,nazwisko,plec,dzial,placa);
     }
 
-    public boolean czyPracujeWDziale(Pracownik pracownik, int dzial){
-        if(pracownik.dzial == dzial) return true;
+    public boolean czyPracujeWDziale(Pracownik pracownik, int dzial) {
+        if (pracownik.dzial == dzial) return true;
         else return false;
 
 
