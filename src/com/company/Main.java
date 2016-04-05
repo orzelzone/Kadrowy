@@ -14,7 +14,7 @@ public class Main implements Serializable {
         System.out.println("Srednie wynagrodzenie w firmie wynosi: " + kadry1.sredniZarobek()+" PLN");
         System.out.println("Srednie wynagrodzenie w dizale 4 wynosi: "+kadry1.sredniZarobek(4)+ " PLN");
         System.out.println(Arrays.toString(kadry1.dajDzialy()));*/
-        Kadry.zapiszDoPliku(kadry1, "plik_kadr.dat");
+
         //Kadry kadry2 = new Kadry();
         kadry1.imprtujZPlikuTekstowego("pracownicy1.txt");
         //Kadry.zapiszDoPliku(kadry2, "plik_kadr2.dat");
@@ -24,6 +24,7 @@ public class Main implements Serializable {
         System.out.println("Srednie wynagrodzenie w firmie wynosi: " + kadry1.sredniZarobek()+" PLN");
         System.out.println("Srednie wynagrodzenie w dizale 4 wynosi: "+kadry1.sredniZarobek(4)+ " PLN");*/
         kadry1.piszDane();
+        kadry1.zapiszDoPliku("Kadrowy.dat");
 
 
     }

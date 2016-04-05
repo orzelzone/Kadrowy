@@ -26,11 +26,12 @@ public class Kadry implements Serializable {
     }
 
     public void dodajPracownikaInteraktywnie() {
+        System.out.println("Wprowadzanie danych nowego pracownika.");
         String imie = czytajString("Podaj imię nowego pracownika");
         String nazwisko = czytajString("Podaj nazwisko nowego pracownika");
-        double placa = czytajDouble("Podaj wysokość wynagrodzenia dla pracownika który zostaje zatrudniony");
-        char plec = czytajChar("Podaj płeć Pracownika M-mężczyzna, K-Kobieta");
-        int dzial = czytajInt("podaj numer działu w którym pracownik zozstaje zatrudniony");
+        double placa = czytajDouble("Podaj wysokość wynagrodzenia dla nowego pracownika");
+        char plec = czytajChar("Podaj płeć Pracownika: M-mężczyzna, K-Kobieta");
+        int dzial = czytajInt("Podaj numer działu w którym nowy pracownik zozstaje zatrudniony");
         Pracownik pracownik = new Pracownik(imie, nazwisko, placa, plec, dzial);
         dodajPracownika(pracownik);
     }
@@ -127,13 +128,14 @@ public class Kadry implements Serializable {
     public void piszDane(){
         System.out.println(this);
         System.out.println("Srednie Wynagrodzenie w firmie wynosi: "+ this.sredniZarobek() +" zł");
-
-
+        for(int i= 0; i< this.dajDzialy().length; i++){
+            System.out.printf("Srednie wynagrodzenie w dziale " + i + " wynosi: %8.2f zł %n", sredniZarobek(dajDzialy()[i]));
+        }
     }
 
-    public static void zapiszDoPliku(Kadry kadry, String nazwaPliku) throws IOException, ClassNotFoundException {
+    public void zapiszDoPliku( String nazwaPliku) throws IOException, ClassNotFoundException {
         ObjectOutputStream plikKadry = new ObjectOutputStream(new FileOutputStream(nazwaPliku));
-        plikKadry.writeObject(kadry);
+        plikKadry.writeObject(this);
     }
 
     public Kadry odczytajZPliku(String nazwaPliku) throws IOException, ClassNotFoundException {
