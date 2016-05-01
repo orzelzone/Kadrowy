@@ -95,41 +95,41 @@ public class Kadry implements Serializable {
     }
 
     protected int[] dajDzialy() {
-        int[] tempTablica = new int[zatrudnienie_];
+        int[] tempTablica = new int[zatrudnienie_]; //tablica tymczasowa
         int licznik = 0;
         boolean jest = false;
-        for (int i = 0; i < zatrudnienie_; i++) {
+        for (int i = 0; i < zatrudnienie_; i++) {//pętla  która idzie po każdym zatrudnoionym
             jest = false;
-            for (int j = 0; j < licznik; j++) {
+            for (int j = 0; j < licznik; j++) {// pętla kóra idzie już po zapisanych danych w tablicy tymczasowej
                 if (jest == false) {
-                    if (tempTablica[j] == pracownicy_[i].getDzial()) {
-                        jest = true;
-                    } else {
-                        jest = false;
+                    if (tempTablica[j] == pracownicy_[i].getDzial()) { //sprawdzenie czy dział w którym pracuje pracownik jest już w tablicy
+                        jest = true;// jeśli jest to true
+                    /*} else {
+                        jest = false; //jeśli nie to false*/
                     }
                 }
             }
-            if (jest == false) {
+            if (jest == false) { // jeśli dział niezapisany w tablicy to zapisuje do tablicy
                 tempTablica[licznik] = pracownicy_[i].getDzial();
                 licznik++;
             }
         }
         //return tempTablica;
         int k = 0;
-        while (tempTablica[k] != 0) {
+        while (tempTablica[k] != 0) { //sprawdzenie ile pól w tabeli zapisanych zostało
             k++;
         }
         int[] tablicaDzialy = new int[k];
-        for (int l = 0; l < k; l++) {
+        for (int l = 0; l < k; l++) { //przepisanie do mniejszej tabeli
             tablicaDzialy[l] = tempTablica[l];
         }
-        return tablicaDzialy;
+        return tablicaDzialy; //zwrócenie tablicy
     }
     public void piszDane(){
         System.out.println(this);
-        System.out.println("Srednie Wynagrodzenie w firmie wynosi: "+ this.sredniZarobek() +" zł");
+        System.out.printf("Srednie Wynagrodzenie w firmie wynosi: %8.2f zł %n", this.sredniZarobek());
         for(int i= 0; i< this.dajDzialy().length; i++){
-            System.out.printf("Srednie wynagrodzenie w dziale " + i + " wynosi: %8.2f zł %n", sredniZarobek(dajDzialy()[i]));
+            System.out.printf("Srednie wynagrodzenie w dziale " +dajDzialy()[i]+ " wynosi: %8.2f zł %n", sredniZarobek(dajDzialy()[i]));
         }
     }
 
