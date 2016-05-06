@@ -37,7 +37,5 @@ public class Pracownik implements Serializable {
     public boolean czyPracujeWDziale(Pracownik pracownik, int dzial) {
         if (pracownik.dzial == dzial) return true;
         else return false;
-
-
     }
 }

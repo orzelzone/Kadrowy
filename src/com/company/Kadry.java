@@ -50,27 +50,20 @@ public class Kadry implements Serializable {
 
     public void imprtujZPlikuTekstowego(String nazwaPliku) throws FileNotFoundException {
         String[] danePracownika = new String[5];
-       int licznik =0;
+        int licznik = 0;
         Scanner linijka = new Scanner(new File(nazwaPliku)).useDelimiter("/n/r");
-
         while (linijka.hasNext()) {
-            //linijkaTekstu= linijka.next();
             Scanner slowo = new Scanner(linijka.nextLine());
-            for (int i = 0; i < 5; i++) {
-                danePracownika[i] = slowo.next();
-            }
-            char znak;
-            char[] myChar;
-            myChar = danePracownika[3].toCharArray();
-            znak = myChar[0];
+            for (int i = 0; i < 5; i++) danePracownika[i] = slowo.next();
+            char[] myChar = danePracownika[3].toCharArray();
             Pracownik pracownik = new Pracownik(danePracownika[0], danePracownika[1], Double.valueOf(danePracownika[2]),
-                    znak, Integer.valueOf(danePracownika[4]));
+                    myChar[0], Integer.valueOf(danePracownika[4]));
             dodajPracownika(pracownik);
             slowo.close();
             licznik++;
         }
         linijka.close();
-        System.out.println("Prawidłowo dokonano importu "+ licznik+ " pracowników z pliku: " + nazwaPliku);
+        System.out.println("Prawidłowo dokonano importu " + licznik + " pracowników z pliku: " + nazwaPliku);
 
     }
 
@@ -97,15 +90,13 @@ public class Kadry implements Serializable {
     protected int[] dajDzialy() {
         int[] tempTablica = new int[zatrudnienie_]; //tablica tymczasowa
         int licznik = 0;
-        boolean jest = false;
+        boolean jest;
         for (int i = 0; i < zatrudnienie_; i++) {//pętla  która idzie po każdym zatrudnoionym
             jest = false;
             for (int j = 0; j < licznik; j++) {// pętla kóra idzie już po zapisanych danych w tablicy tymczasowej
                 if (jest == false) {
                     if (tempTablica[j] == pracownicy_[i].getDzial()) { //sprawdzenie czy dział w którym pracuje pracownik jest już w tablicy
-                        jest = true;// jeśli jest to true
-                    /*} else {
-                        jest = false; //jeśli nie to false*/
+                        jest = true;
                     }
                 }
             }
@@ -114,26 +105,22 @@ public class Kadry implements Serializable {
                 licznik++;
             }
         }
-        //return tempTablica;
-        int k = 0;
-        while (tempTablica[k] != 0) { //sprawdzenie ile pól w tabeli zapisanych zostało
-            k++;
-        }
-        int[] tablicaDzialy = new int[k];
-        for (int l = 0; l < k; l++) { //przepisanie do mniejszej tabeli
+        int[] tablicaDzialy = new int[licznik];
+        for (int l = 0; l < licznik; l++) { //przepisanie do mniejszej tabeli
             tablicaDzialy[l] = tempTablica[l];
         }
         return tablicaDzialy; //zwrócenie tablicy
     }
-    public void piszDane(){
+
+    public void piszDane() {
         System.out.println(this);
         System.out.printf("Srednie Wynagrodzenie w firmie wynosi: %8.2f zł %n", this.sredniZarobek());
-        for(int i= 0; i< this.dajDzialy().length; i++){
-            System.out.printf("Srednie wynagrodzenie w dziale " +dajDzialy()[i]+ " wynosi: %8.2f zł %n", sredniZarobek(dajDzialy()[i]));
+        for (int i = 0; i < this.dajDzialy().length; i++) {
+            System.out.printf("Srednie wynagrodzenie w dziale " + dajDzialy()[i] + " wynosi: %8.2f zł %n", sredniZarobek(dajDzialy()[i]));
         }
     }
 
-    public void zapiszDoPliku( String nazwaPliku) throws IOException, ClassNotFoundException {
+    public void zapiszDoPliku(String nazwaPliku) throws IOException, ClassNotFoundException {
         ObjectOutputStream plikKadry = new ObjectOutputStream(new FileOutputStream(nazwaPliku));
         plikKadry.writeObject(this);
     }
@@ -142,8 +129,6 @@ public class Kadry implements Serializable {
         ObjectInputStream plikKadry = new ObjectInputStream(new FileInputStream(nazwaPliku));
         return (Kadry) plikKadry.readObject();
     }
-
-
     //////////////////////////////////
     //metody pomocnicze po za zadaniem
 
@@ -186,10 +171,7 @@ public class Kadry implements Serializable {
                 System.err.println("błąd danych");
                 ok = false;
             }
-
         }
-        // odczyt.close();
-
         return liczba;
     }
 
@@ -202,8 +184,6 @@ public class Kadry implements Serializable {
         System.out.println("Wprowadzone dane to: " + temp);
         //klawiatura.close();
         return temp;
-
-
     }
 
     private static char czytajChar(String komunikat) {
@@ -211,13 +191,11 @@ public class Kadry implements Serializable {
         String temp;
         boolean poprawny = false;
         Scanner klawiatura = new Scanner(System.in);
-
         while (poprawny == false) {
             try {
                 System.out.println(komunikat);
                 temp = klawiatura.nextLine();
-                char[] myChar;
-                myChar = temp.toCharArray();
+                char[] myChar = temp.toCharArray();
                 znak = myChar[0];
                 if (znak == 'm' || znak == 'k' || znak == 'M' || znak == 'K') {
                     poprawny = true;
@@ -226,15 +204,12 @@ public class Kadry implements Serializable {
                     poprawny = false;
                     System.out.println("Wprowadziłeś nieprawidłowe oznaczenie płci");
                 }
-
             } catch (Exception e) {
                 System.out.println("Porszę podać poprawny znak");
                 poprawny = false;
             }
         }
         klawiatura.close();
-
         return znak;
-
     }
 }
